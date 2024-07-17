@@ -1,0 +1,52 @@
+
+<script>
+  var stripePublishableKey = "pk_test_51Pd5hdHczqJdVP4PISedP7hi729aYues3UCYWJ0J9Eozqslemubpta7rzkXb8HkvPoYFfa8wjJKRnM4H8mh9NNJL00nEO6QYbt";
+</script>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <h2 class="pb-4"><%= t('.sign_up') %></h2>
+	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { role: "form", class: 'cc_form' }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="mb-3">
+		<%= f.label :email, class: "form-label" %>
+		<%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+      </div>
+
+      <div class="row mb-4">
+			<div class="col">
+			<%= f.label :password, class: "form-label" %>
+			<%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+
+			<% if @minimum_password_length %>
+				<div class="form-text"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></div>
+			<% end %>
+			</div>
+
+			<div class="col">
+			<%= f.label :password_confirmation, class: "form-label" %>
+			<%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+			</div>
+      </div>
+	
+          <label for="card-element">Credit or debit card</label>
+          <div id="card-element" class="form-control">
+            <!-- A Stripe Element will be inserted here. -->
+          </div>
+          <!-- Used to display form errors. -->
+          <div id="card-errors" role="alert"></div>
+
+
+      <%= hidden_field_tag :stripeToken, nil, id: 'stripeToken' %>
+
+
+		<div class="mb-3">
+			<%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
+		</div>	
+			<% end %>
+		
+		<%= render "devise/shared/links" %>
+  </div>
+</div>
